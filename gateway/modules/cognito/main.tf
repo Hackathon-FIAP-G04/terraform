@@ -37,7 +37,17 @@ resource "aws_cognito_user_pool" "cognito" {
   }
 
   schema {
-    name                = "customerId"
+    name                = "patientId"
+    attribute_data_type = "String"
+    mutable             = false
+    string_attribute_constraints {
+      min_length = 36
+      max_length = 36
+    }
+  }
+
+  schema {
+    name                = "doctorId"
     attribute_data_type = "String"
     mutable             = false
     string_attribute_constraints {
