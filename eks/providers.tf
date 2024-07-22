@@ -5,7 +5,7 @@ terraform {
     local = ">=2.4.1"
   }
   backend "s3" {
-    bucket = "iburguer-bucket"
+    bucket = "healthmed-eks-bucket"
     key = "terraform.tfstate"
     region = "us-east-1"
   }

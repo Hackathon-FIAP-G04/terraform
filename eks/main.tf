@@ -1,7 +1,7 @@
 resource "aws_security_group" "eks" {
     name        = "${var.cluster_name}"
     description = "Allow traffic"
-    vpc_id      = aws_vpc.vpc.id
+    vpc_id      = data.aws_vpc.vpc.id
 
     ingress {
       description      = "World"
@@ -35,8 +35,8 @@ resource "aws_security_group" "eks" {
     cluster_endpoint_public_access  = true
     cluster_additional_security_group_ids = [aws_security_group.eks.id]
 
-    vpc_id     = aws_vpc.vpc.id
-    subnet_ids = concat(aws_subnets.private-subnets.*.id, aws_subnets.public-subnets.*.id)
+    vpc_id     = data.aws_vpc.vpc.id
+    subnet_ids = concat(data.aws_subnets.private-subnets.ids, data.aws_subnets.public-subnets.ids)
 
     eks_managed_node_group_defaults = {
       ami_type               = "AL2_x86_64"

@@ -68,7 +68,7 @@ resource "helm_release" "alb-controller" {
 
   set {
     name  = "vpcId"
-    value = aws_vpc.vpc.id
+    value = data.aws_vpc.vpc.id
   }
   
   set {
