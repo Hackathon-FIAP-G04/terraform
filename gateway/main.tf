@@ -32,11 +32,6 @@ module "gateway-doctor" {
     load_balancer_arn = var.load_balancer_arn_doctors
   },
   {
-    route = "/doctors"
-    method = "PATCH"
-    load_balancer_arn = var.load_balancer_arn_doctors
-  },
-  {
     route = "/servicePeriods"
     method = "POST"
     load_balancer_arn = var.load_balancer_arn_appointments
@@ -66,11 +61,11 @@ module "gateway-doctor" {
 
   use_cognito = true
   cognito_endpoint = module.cognito-doctors.cognito_endpoint
-  cognito_pool_client_id = module.cognito-doctors.cognito_pool_client_id
+  cognito_pool_client_id = module.cognito-doctors.pool_client_id
 }
 
 module "gateway-patients" {
-  source = "./modules/patients"
+  source = "./modules/gateway"
 
   gateway_name = "${var.prefix}-patients-gateway"
   gateway_stage = "${var.prefix}-patients"
@@ -78,6 +73,11 @@ module "gateway-patients" {
   {
     route = "/doctors"
     method = "GET"
+    load_balancer_arn = var.load_balancer_arn_doctors
+  },
+  {
+    route = "/doctors"
+    method = "PATCH"
     load_balancer_arn = var.load_balancer_arn_doctors
   },
   {
@@ -110,22 +110,41 @@ module "gateway-patients" {
 
   use_cognito = true
   cognito_endpoint = module.cognito-patients.cognito_endpoint
-  cognito_pool_client_id = module.cognito-patients.cognito_pool_client_id
+  cognito_pool_client_id = module.cognito-patients.pool_client_id
 }
 
 module "cognito-doctors" {
   source = "./modules/cognito-doctors"
-  prefix = "${var.prefix}-totem"
+  prefix = "${var.prefix}-doctors"
   cognito_domain = var.cognito_domain_doctors
 }
 
 module "cognito-patients" {
   source = "./modules/cognito-patients"
-  prefix = "${var.prefix}-totem"
+  prefix = "${var.prefix}-patients"
   cognito_domain = var.cognito_domain_patients
 }
 
-output "base_url" {
-  value = "${module.gateway.base_url}"
+output "base_url_doctor" {
+  value = "${module.gateway-doctor.base_url}"
 }
 
+output "base_url_patients" {
+  value = "${module.gateway-patients.base_url}"
+}
+
+output "cognito-doctors-pool-id" {
+  value = "${module.cognito-doctors.pool_id}"
+}
+
+output "cognito-doctors-client-id" {
+  value = "${module.cognito-doctors.pool_client_id}"
+}
+
+output "cognito-patients-pool-id" {
+  value = "${module.cognito-patients.pool_id}"
+}
+
+output "cognito-patients-client-id" {
+  value = "${module.cognito-patients.pool_client_id}"
+}
