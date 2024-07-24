@@ -1,8 +1,6 @@
 name: VPC - Terraform Apply
 
 on:
-  push:
-    branches: ["main"]
   workflow_dispatch:
 
 jobs:
