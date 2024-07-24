@@ -1,4 +1,4 @@
-name: EKS Terraform Destroy
+name: VPC Terraform Destroy
 
 on:
   workflow_dispatch:

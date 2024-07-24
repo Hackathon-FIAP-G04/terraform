@@ -1,4 +1,4 @@
-name: EKS - Terraform Apply
+name: VPC - Terraform Apply
 
 on:
   push:

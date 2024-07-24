@@ -1,4 +1,4 @@
-name: EKS - Terraform Apply
+name: Gateway - Terraform Apply
 
 on:
   push:

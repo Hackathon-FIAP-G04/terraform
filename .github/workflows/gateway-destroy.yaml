@@ -1,4 +1,4 @@
-name: EKS Terraform Destroy
+name: Gateway Terraform Destroy
 
 on:
   workflow_dispatch:
