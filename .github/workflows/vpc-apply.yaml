@@ -27,13 +27,10 @@ jobs:
         with:
           terraform_version: 1.7.4
 
-      - name: Enter EKS folder
-        run: cd vpc
-
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform -chdir=vpc init
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply -auto-approve
+        run: terraform -chdir=vpc apply -auto-approve

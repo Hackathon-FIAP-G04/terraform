@@ -25,13 +25,10 @@ jobs:
         with:
           terraform_version: 1.7.4
 
-      - name: Enter EKS folder
-        run: cd eks
-
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform -chdir=eks init
 
       - name: Terraform Destroy
         id: destroy
-        run: terraform destroy -auto-approve
+        run: terraform -chdir=eks destroy -auto-approve

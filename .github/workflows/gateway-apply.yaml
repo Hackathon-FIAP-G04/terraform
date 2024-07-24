@@ -27,13 +27,10 @@ jobs:
         with:
           terraform_version: 1.7.4
 
-      - name: Enter EKS folder
-        run: cd gateway
-
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform -chdir=gateway init
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply -auto-approve -var="load_balancer_arn_doctors=${{ secrets.LOAD_BALANCER_ARN_DOCTORS }}"  -var="load_balancer_arn_appointments=${{ secrets.LOAD_BALANCER_ARN_APPOINTMENTS }}"
+        run: terraform -chdir=gateway apply -auto-approve -var="load_balancer_arn_doctors=${{ secrets.LOAD_BALANCER_ARN_DOCTORS }}"  -var="load_balancer_arn_appointments=${{ secrets.LOAD_BALANCER_ARN_APPOINTMENTS }}"
